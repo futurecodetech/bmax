@@ -45,7 +45,7 @@ static const int64_t MIN_TX_FEE = 0.00001 * COIN;
 static const int64_t MIN_RELAY_TX_FEE = 0.00001 * COIN;
 static const int64_t MIN_TXOUT_AMOUNT = 0.00001 * COIN;
 
-static const int64_t MAX_MONEY = 22000000 * COIN;
+static const int64_t MAX_MONEY = 59000000 * COIN;
 
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
@@ -53,8 +53,8 @@ static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20
 // Maximum number of script-checking threads allowed
 static const int MAX_SCRIPTCHECK_THREADS = 16;
 
-static const uint256 hashGenesisBlock("0x0000093307d3dfe89800e66b73421cd27b3e74118fbfb25071109e8013829a27");
-static const uint256 hashGenesisBlockTestNet("0x0000d2c4b494faf4fc63b3fe6e8832afd945dff546683e6879ec0b1d6582fa11");
+static const uint256 hashGenesisBlock("");
+static const uint256 hashGenesisBlockTestNet("");
 
 inline int64_t PastDrift(int64_t nTime)   { return nTime - ((2 * 3 + 10) * 60); } // up to this from the past
 inline int64_t FutureDrift(int64_t nTime) { return nTime + 5 * 60; } // up to 5 mins from the future

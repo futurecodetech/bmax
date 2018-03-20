@@ -44,8 +44,8 @@ CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
 unsigned int nStakeMinAge = 8 * nOneHour; // days as zero time weight
 unsigned int nStakeMaxAge = 3 * 24 * nOneHour; // days as full weight
-unsigned int nStakeTargetSpacing = 2 * 60; // 2-minute stakes spacing
-int64_t nTargetSpacing = 2 * 60;  // Same as the above
+unsigned int nStakeTargetSpacing = 5 * 60; // 2-minute stakes spacing
+int64_t nTargetSpacing = 5 * 60;  // Same as the above
 unsigned int nModifierInterval = 0.2 * nOneHour; // time to elapse before new modifier is computed
 
 int nCoinbaseMaturity = 60;
@@ -1057,12 +1057,8 @@ int64_t GetProofOfWorkReward(unsigned int nBits, int64_t nFees, int nHeight)
     int64_t nSubsidy = 0 * COIN;
     
 	if (nHeight == 1)
-		return 18000000 * COIN;
-	
-	if(nHeight<=1051200){
-		nSubsidy = 1.99771689 * COIN;
-	}
-	
+		return 57700000 * COIN;
+
     if (fDebug && GetBoolArg("-printcreation"))
         printf("GetProofOfWorkReward() : create=%s nBits=0x%08x nSubsidy=%" PRId64 "\n", FormatMoney(nSubsidy).c_str(), nBits, nSubsidy);
 
@@ -1072,7 +1068,7 @@ int64_t GetProofOfWorkReward(unsigned int nBits, int64_t nFees, int nHeight)
 // miner's coin stake reward based on nBits and coin age spent (coin-days)
 int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, int64_t nTime, bool bCoinYearOnly)
 {
-    int64_t nRewardCoinYear = 1 * CENT;
+    int64_t nRewardCoinYear = 5 * CENT;
 
     int64_t nSubsidy = nCoinAge * nRewardCoinYear / 365;
 
@@ -1082,7 +1078,7 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, int64_t nTim
     return nSubsidy; // + nFees;
 }
 
-static const int64_t nTargetTimespan = 2 * 15 * 60;
+static const int64_t nTargetTimespan = 5 * 15 * 60;
 
 // Get proof of work blocks max spacing according to hard-coded conditions
 // Not in use right now!
