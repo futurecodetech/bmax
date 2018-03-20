@@ -1,0 +1,11 @@
+[Unit]
+Description=BMAXCOIN daemon serivce
+After=network.target
+
+[Service]
+Type=simple
+User=BMAXCOIN
+ExecStart=/opt/BMAXCOIN/BMAXCOINd
+
+[Install]
+WantedBy=multi-user.target

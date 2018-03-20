@@ -1,0 +1,5 @@
+BMAXCOIN-qt usr/bin
+share/pixmaps/BMAXCOIN32.xpm usr/share/pixmaps
+share/pixmaps/BMAXCOIN80.xpm usr/share/pixmaps
+debian/BMAXCOIN-qt.desktop usr/share/applications
+debian/BMAXCOIN-qt.protocol usr/share/kde4/services/

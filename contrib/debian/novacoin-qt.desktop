@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=BMAXCOIN
+Comment=BMAXCOIN P2P Cryptocurrency
+Comment[ru]=BMAXCOIN, P2P криптовалюта
+Comment[fr]=BMAXCOIN, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=BMAXCOIN, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/BMAXCOIN-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/BMAXCOIN80.xpm
+MimeType=x-scheme-handler/BMAXCOIN;
+Categories=Office;

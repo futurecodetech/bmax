@@ -1,0 +1,2 @@
+debian/bin/BMAXCOINd usr/bin
+src/BMAXCOINd usr/lib/BMAXCOIN

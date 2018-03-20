@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# PROVIDE: BMAXCOIN
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# BMAXCOIN_enable (bool): Set to NO by default. Set this variable to YES if you want to enable BMAXCOIN service.
+# BMAXCOIN_config (path): Set to /usr/local/etc/BMAXCOIN.conf by default.
+# BMAXCOIN_user:  The user account BMAXCOIN daemon runs as. It uses 'root' user by default.
+# BMAXCOIN_group: The group account BMAXCOIN daemon runs as. It uses 'wheel' group by default.
+# BMAXCOIN_datadir (str): Default to "/var/db/BMAXCOIN". Base data directory.
+
+. /etc/rc.subr
+
+name=BMAXCOIN
+rcvar=BMAXCOIN_enable
+
+: ${BMAXCOIN_enable:=NO}
+: ${BMAXCOIN_config=/usr/local/etc/BMAXCOIN.conf}
+: ${BMAXCOIN_datadir=/var/db/BMAXCOIN}
+: ${BMAXCOIN_user="root"}
+: ${BMAXCOIN_group="wheel"}
+
+required_files=${BMAXCOIN_config}
+command=/usr/local/bin/BMAXCOINd
+BMAXCOIN_chdir=${BMAXCOIN_datadir}
+pidfile="${BMAXCOIN_datadir}/BMAXCOINd.pid"
+stop_cmd=BMAXCOIN_stop
+command_args="-conf=${BMAXCOIN_config} -datadir=${BMAXCOIN_datadir} -daemon -pid=${pidfile}"
+start_precmd="${name}_prestart"
+
+BMAXCOIN_create_datadir()
+{
+	echo "Creating data directory"
+	eval mkdir -p ${BMAXCOIN_datadir}
+	[ $? -eq 0 ] && chown -R ${BMAXCOIN_user}:${BMAXCOIN_group} ${BMAXCOIN_datadir}
+}
+
+BMAXCOIN_prestart()
+{
+	if [ ! -d "${BMAXCOIN_datadir}/." ]; then
+		BMAXCOIN_create_datadir || return 1
+	fi
+}
+
+BMAXCOIN_requirepidfile()
+{
+	if [ ! "0`check_pidfile ${pidfile} ${command}`" -gt 1 ]; then
+		echo "${name} not running? (check $pidfile)."
+		exit 1
+	fi
+}
+
+BMAXCOIN_stop()
+{
+    BMAXCOIN_requirepidfile
+
+	echo "Stopping ${name}."
+	eval ${command} -conf=${BMAXCOIN_config} -datadir=${BMAXCOIN_datadir} stop
+	wait_for_pids ${rc_pid}
+}
+
+load_rc_config $name
+run_rc_command "$1"
